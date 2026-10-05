@@ -1,0 +1,9 @@
+Check,Passed,Observed,Expected
+DimFan primary key unique,True,30000.0,30000.0
+Ticket FanID FK valid,True,,
+Ticket MatchID FK valid,True,,
+Retail ProductID FK valid,True,,
+Campaign funnel logical,True,,
+PL attendance calibrated,True,52517.0,52517.0
+Tickets sold calibration,True,1400000.0,1400000.0
+No negative ticket revenue,True,,

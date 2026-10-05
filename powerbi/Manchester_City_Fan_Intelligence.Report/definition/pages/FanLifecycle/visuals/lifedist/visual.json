@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "lifedist",
+  "position": {
+    "x": 30,
+    "y": 185,
+    "z": 1000,
+    "width": 575,
+    "height": 450,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fan360Features"
+                    }
+                  },
+                  "Property": "LifecycleStage"
+                }
+              },
+              "queryRef": "Fan360Features.LifecycleStage",
+              "active": true,
+              "nativeQueryRef": "LifecycleStage"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fan360Features"
+                    }
+                  },
+                  "Property": "Segment Fans"
+                }
+              },
+              "queryRef": "Fan360Features.Segment Fans",
+              "active": true,
+              "nativeQueryRef": "Segment Fans"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Lifecycle Distribution'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": []
+  }
+}

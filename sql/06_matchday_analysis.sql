@@ -1,0 +1,1 @@
+SELECT m.Competition,m.MatchCategory,COUNT(DISTINCT m.MatchID) HomeMatches,AVG(m.AttendanceEstimate) AvgAttendance,SUM(t.NetRevenueGBP) ModeledTicketRevenue,COUNT(DISTINCT t.FanID) UniqueBuyers FROM DimMatch m LEFT JOIN FactTicketSales t ON m.MatchID=t.MatchID GROUP BY m.Competition,m.MatchCategory ORDER BY HomeMatches DESC;

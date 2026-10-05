@@ -1,0 +1,36 @@
+table 'PublicMatchday'
+
+	column 'Season'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Season
+
+	column 'AvgPremierLeagueHomeAttendance'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: AvgPremierLeagueHomeAttendance
+
+	column 'PremierLeagueOccupancyPct'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: PremierLeagueOccupancyPct
+
+	column 'TicketsSoldAllCompetitions'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: TicketsSoldAllCompetitions
+
+	column 'RecordNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: RecordNature
+
+	partition 'PublicMatchday-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\public_benchmarks\matchday_benchmarks.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"Season", type text}, {"AvgPremierLeagueHomeAttendance", Int64.Type}, {"PremierLeagueOccupancyPct", type number}, {"TicketsSoldAllCompetitions", Int64.Type}, {"RecordNature", type text}})
+				in
+					Typed

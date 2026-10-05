@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "objconv",
+  "position": {
+    "x": 650,
+    "y": 185,
+    "z": 1000,
+    "width": 560,
+    "height": 450,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimCampaign"
+                    }
+                  },
+                  "Property": "Objective"
+                }
+              },
+              "queryRef": "DimCampaign.Objective",
+              "active": true,
+              "nativeQueryRef": "Objective"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactCampaignInteractions"
+                    }
+                  },
+                  "Property": "Campaign Conversions"
+                }
+              },
+              "queryRef": "FactCampaignInteractions.Campaign Conversions",
+              "active": true,
+              "nativeQueryRef": "Campaign Conversions"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Conversions by Objective'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": []
+  }
+}

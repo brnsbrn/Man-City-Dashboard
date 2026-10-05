@@ -1,0 +1,12 @@
+-- SQL Server / Azure SQL compatible analytical schema
+-- All fan-level facts are synthetic; public benchmarks are stored separately.
+CREATE TABLE DimFan (FanID INT PRIMARY KEY, Age INT, AgeBand VARCHAR(20), Country VARCHAR(80), City VARCHAR(80), Region VARCHAR(50), AcquisitionChannel VARCHAR(50), FirstSeenDate DATE, IsMember BIT, MembershipType VARCHAR(50), HomeMarket VARCHAR(30), DataNature VARCHAR(200));
+CREATE TABLE DimDate (Date DATE, DateKey INT PRIMARY KEY, Year INT, MonthNo INT, Month VARCHAR(10), MonthYear CHAR(7), Quarter CHAR(2), Weekday VARCHAR(12), IsWeekend BIT);
+CREATE TABLE DimMatch (MatchID INT PRIMARY KEY, MatchDate DATE, Season VARCHAR(10), Competition VARCHAR(60), Opponent VARCHAR(80), Result CHAR(1), MatchCategory CHAR(1), Venue VARCHAR(80), AttendanceEstimate INT, TicketsSoldEstimate INT);
+CREATE TABLE DimProduct (ProductID INT PRIMARY KEY, ProductName VARCHAR(100), Category VARCHAR(50), ListPriceGBP DECIMAL(10,2), DataNature VARCHAR(200));
+CREATE TABLE DimCampaign (CampaignID INT PRIMARY KEY, CampaignName VARCHAR(100), Objective VARCHAR(30), PrimaryChannel VARCHAR(30), StartDate DATE, EndDate DATE, DataNature VARCHAR(200));
+CREATE TABLE FactTicketSales (TicketSaleID BIGINT PRIMARY KEY, FanID INT, MatchID INT, PurchaseDate DATE, DateKey INT, TicketType VARCHAR(40), Quantity INT, GrossRevenueGBP DECIMAL(12,2), DiscountGBP DECIMAL(12,2), NetRevenueGBP DECIMAL(12,2), SalesChannel VARCHAR(30), DataNature VARCHAR(200));
+CREATE TABLE FactRetailTransactions (RetailTransactionID BIGINT PRIMARY KEY, FanID INT, ProductID INT, TransactionDate DATE, DateKey INT, Channel VARCHAR(30), Quantity INT, UnitPriceGBP DECIMAL(12,2), DiscountGBP DECIMAL(12,2), NetRevenueGBP DECIMAL(12,2), DataNature VARCHAR(200));
+CREATE TABLE FactMembership (MembershipTransactionID BIGINT PRIMARY KEY, FanID INT, PurchaseDate DATE, DateKey INT, MembershipType VARCHAR(50), MembershipRevenueGBP DECIMAL(12,2), Status VARCHAR(20), DataNature VARCHAR(200));
+CREATE TABLE FactDigitalEngagement (EngagementID BIGINT PRIMARY KEY, FanID INT, EventDate DATE, DateKey INT, MonthYear CHAR(7), Platform VARCHAR(40), Sessions INT, ContentViews INT, EngagementActions INT, DataNature VARCHAR(200));
+CREATE TABLE FactCampaignInteractions (InteractionID BIGINT PRIMARY KEY, CampaignID INT, FanID INT, InteractionDate DATE, DateKey INT, Delivered BIT, Opened BIT, Clicked BIT, Converted BIT, AttributedRevenueGBP DECIMAL(12,2), DataNature VARCHAR(200));

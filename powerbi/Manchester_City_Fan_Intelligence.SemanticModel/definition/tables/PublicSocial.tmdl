@@ -1,0 +1,71 @@
+table 'PublicSocial'
+
+	column 'Season'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Season
+
+	column 'TotalSocialFollowers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: TotalSocialFollowers_m
+
+	column 'VideoViews_bn'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: VideoViews_bn
+
+	column 'Engagements_bn'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: Engagements_bn
+
+	column 'AvgMonthlyActiveUsers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: AvgMonthlyActiveUsers_m
+
+	column 'WhatsAppFollowers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: WhatsAppFollowers_m
+
+	column 'InstagramFollowers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: InstagramFollowers_m
+
+	column 'TikTokFollowers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: TikTokFollowers_m
+
+	column 'FacebookFollowers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: FacebookFollowers_m
+
+	column 'XFollowers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: XFollowers_m
+
+	column 'YouTubeFollowers_m'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: YouTubeFollowers_m
+
+	column 'RecordNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: RecordNature
+
+	partition 'PublicSocial-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\public_benchmarks\social_media_benchmarks.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"Season", type text}, {"TotalSocialFollowers_m", type number}, {"VideoViews_bn", type number}, {"Engagements_bn", type number}, {"AvgMonthlyActiveUsers_m", type number}, {"WhatsAppFollowers_m", type number}, {"InstagramFollowers_m", type number}, {"TikTokFollowers_m", type number}, {"FacebookFollowers_m", type number}, {"XFollowers_m", type number}, {"YouTubeFollowers_m", type number}, {"RecordNature", type text}})
+				in
+					Typed

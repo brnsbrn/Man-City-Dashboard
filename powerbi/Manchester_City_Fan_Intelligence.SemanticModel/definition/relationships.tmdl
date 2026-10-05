@@ -1,0 +1,55 @@
+relationship 'fe1adfbb-9c37-42de-a48c-587d8a3ba6cb'
+	fromColumn: 'FactTicketSales'.'FanID'
+	toColumn: 'DimFan'.'FanID'
+
+relationship '11670d7b-6314-4f54-97b2-342c9e182f93'
+	fromColumn: 'FactTicketSales'.'MatchID'
+	toColumn: 'DimMatch'.'MatchID'
+
+relationship '23f0d185-dbaf-442f-83e1-c8e6029dc186'
+	fromColumn: 'FactTicketSales'.'DateKey'
+	toColumn: 'DimDate'.'DateKey'
+
+relationship 'cae0054a-ab36-4023-ac22-22a6b9a4c263'
+	fromColumn: 'FactRetailTransactions'.'FanID'
+	toColumn: 'DimFan'.'FanID'
+
+relationship '4b8a3116-2dac-4f0c-867b-0d833436fb15'
+	fromColumn: 'FactRetailTransactions'.'ProductID'
+	toColumn: 'DimProduct'.'ProductID'
+
+relationship '52f162de-347f-46f6-a0c7-5f486cf2a4fe'
+	fromColumn: 'FactRetailTransactions'.'DateKey'
+	toColumn: 'DimDate'.'DateKey'
+
+relationship '28df348f-1c40-4442-9b9b-cad7d821c1dc'
+	fromColumn: 'FactMembership'.'FanID'
+	toColumn: 'DimFan'.'FanID'
+
+relationship '365d7272-a635-46a7-8392-9fe06e0645d1'
+	fromColumn: 'FactMembership'.'DateKey'
+	toColumn: 'DimDate'.'DateKey'
+
+relationship '12407586-d8dc-476c-a461-3343b2f139fe'
+	fromColumn: 'FactDigitalEngagement'.'FanID'
+	toColumn: 'DimFan'.'FanID'
+
+relationship 'cfd3334e-c092-4ecf-8330-5dce5124e872'
+	fromColumn: 'FactDigitalEngagement'.'DateKey'
+	toColumn: 'DimDate'.'DateKey'
+
+relationship '913c38bd-3942-4545-8de3-63dbc70562ad'
+	fromColumn: 'FactCampaignInteractions'.'FanID'
+	toColumn: 'DimFan'.'FanID'
+
+relationship '910f444b-d5c5-457e-9e37-f9c398e94a68'
+	fromColumn: 'FactCampaignInteractions'.'CampaignID'
+	toColumn: 'DimCampaign'.'CampaignID'
+
+relationship 'b7f34432-61ea-4720-8ed9-a0471d0d5ede'
+	fromColumn: 'FactCampaignInteractions'.'DateKey'
+	toColumn: 'DimDate'.'DateKey'
+
+relationship '628da1bc-2878-4c76-895d-16234d4d2f18'
+	fromColumn: 'Fan360Features'.'FanID'
+	toColumn: 'DimFan'.'FanID'

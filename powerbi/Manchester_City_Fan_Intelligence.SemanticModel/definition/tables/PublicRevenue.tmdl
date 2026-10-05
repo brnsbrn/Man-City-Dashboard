@@ -1,0 +1,50 @@
+table 'PublicRevenue'
+
+	measure 'Reported 2024/25 Total Revenue' = CALCULATE(SUM(PublicRevenue[TotalRevenue_GBPm]), PublicRevenue[Season] = "2024-25")
+		formatString: £0.0m
+
+	measure 'Reported 2024/25 Commercial Revenue' = CALCULATE(SUM(PublicRevenue[CommercialRevenue_GBPm]), PublicRevenue[Season] = "2024-25")
+		formatString: £0.0m
+
+	measure 'Reported Total Revenue GBPm' = SUM(PublicRevenue[TotalRevenue_GBPm])
+		formatString: £0.0m
+
+	column 'Season'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Season
+
+	column 'MatchdayRevenue_GBPm'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: MatchdayRevenue_GBPm
+
+	column 'BroadcastRevenue_GBPm'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: BroadcastRevenue_GBPm
+
+	column 'CommercialRevenue_GBPm'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: CommercialRevenue_GBPm
+
+	column 'TotalRevenue_GBPm'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: TotalRevenue_GBPm
+
+	column 'RecordNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: RecordNature
+
+	partition 'PublicRevenue-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\public_benchmarks\club_revenue_2020_25.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"Season", type text}, {"MatchdayRevenue_GBPm", type number}, {"BroadcastRevenue_GBPm", type number}, {"CommercialRevenue_GBPm", type number}, {"TotalRevenue_GBPm", type number}, {"RecordNature", type text}})
+				in
+					Typed

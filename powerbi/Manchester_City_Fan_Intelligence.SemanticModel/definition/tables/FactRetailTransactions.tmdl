@@ -1,0 +1,78 @@
+table 'FactRetailTransactions'
+
+	measure 'Retail Revenue' = SUM(FactRetailTransactions[NetRevenueGBP])
+		formatString: £#,0
+
+	measure 'Retail Buyers' = DISTINCTCOUNT(FactRetailTransactions[FanID])
+		formatString: #,0
+
+	measure 'Retail Units' = SUM(FactRetailTransactions[Quantity])
+		formatString: #,0
+
+	column 'RetailTransactionID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: RetailTransactionID
+
+	column 'FanID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: FanID
+
+	column 'ProductID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: ProductID
+
+	column 'TransactionDate'
+		dataType: dateTime
+		summarizeBy: none
+		sourceColumn: TransactionDate
+
+	column 'DateKey'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'Channel'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Channel
+
+	column 'Quantity'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Quantity
+
+	column 'UnitPriceGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: UnitPriceGBP
+
+	column 'DiscountGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: DiscountGBP
+
+	column 'NetRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: NetRevenueGBP
+
+	column 'DataNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DataNature
+
+	partition 'FactRetailTransactions-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\fact_retail_transactions.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"RetailTransactionID", Int64.Type}, {"FanID", Int64.Type}, {"ProductID", Int64.Type}, {"TransactionDate", type datetime}, {"DateKey", Int64.Type}, {"Channel", type text}, {"Quantity", Int64.Type}, {"UnitPriceGBP", type number}, {"DiscountGBP", type number}, {"NetRevenueGBP", type number}, {"DataNature", type text}})
+				in
+					Typed

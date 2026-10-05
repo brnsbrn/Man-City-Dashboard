@@ -1,0 +1,28 @@
+MatchID,MatchDate,Season,Competition,Opponent,Result,MatchCategory,Venue,AttendanceEstimate,TicketsSoldEstimate
+1,2024-08-24,2024-25,Premier League,Ipswich Town,W,B,Etihad Stadium,52478,50884
+2,2024-09-14,2024-25,Premier League,Brentford,W,B,Etihad Stadium,52008,50890
+3,2024-09-18,2024-25,UEFA Champions League,Inter Milan,D,A,Etihad Stadium,53100,54219
+4,2024-09-22,2024-25,Premier League,Arsenal,D,A,Etihad Stadium,53122,54505
+5,2024-09-24,2024-25,EFL Cup,Watford,W,C,Etihad Stadium,44617,46579
+6,2024-10-05,2024-25,Premier League,Fulham,W,B,Etihad Stadium,51916,51517
+7,2024-10-23,2024-25,UEFA Champions League,Sparta Prague,W,C,Etihad Stadium,50695,50487
+8,2024-10-26,2024-25,Premier League,Southampton,W,B,Etihad Stadium,52261,52464
+9,2024-11-23,2024-25,Premier League,Tottenham Hotspur,L,A,Etihad Stadium,52816,51830
+10,2024-11-26,2024-25,UEFA Champions League,Feyenoord,D,C,Etihad Stadium,50351,49170
+11,2024-12-04,2024-25,Premier League,Nottingham Forest,W,B,Etihad Stadium,52680,52911
+12,2024-12-15,2024-25,Premier League,Manchester United,L,A,Etihad Stadium,53094,52263
+13,2024-12-26,2024-25,Premier League,Everton,D,B,Etihad Stadium,52395,53443
+14,2025-01-04,2024-25,Premier League,West Ham United,W,B,Etihad Stadium,52767,52834
+15,2025-01-11,2024-25,FA Cup,Salford City,W,C,Etihad Stadium,47864,49449
+16,2025-01-25,2024-25,Premier League,Chelsea,W,A,Etihad Stadium,52521,53700
+17,2025-01-29,2024-25,UEFA Champions League,Club Brugge,W,C,Etihad Stadium,50779,50334
+18,2025-02-11,2024-25,UEFA Champions League,Real Madrid,L,A,Etihad Stadium,52614,54355
+19,2025-02-15,2024-25,Premier League,Newcastle United,W,B,Etihad Stadium,52679,54305
+20,2025-02-23,2024-25,Premier League,Liverpool,L,A,Etihad Stadium,52805,52661
+21,2025-03-01,2024-25,FA Cup,Plymouth Argyle,W,C,Etihad Stadium,47635,47125
+22,2025-03-15,2024-25,Premier League,Brighton & Hove Albion,D,B,Etihad Stadium,52134,53230
+23,2025-04-02,2024-25,Premier League,Leicester City,W,B,Etihad Stadium,52800,51603
+24,2025-04-12,2024-25,Premier League,Crystal Palace,W,B,Etihad Stadium,52318,51385
+25,2025-04-22,2024-25,Premier League,Aston Villa,W,B,Etihad Stadium,52222,50482
+26,2025-05-02,2024-25,Premier League,Wolverhampton Wanderers,W,B,Etihad Stadium,52249,53787
+27,2025-05-20,2024-25,Premier League,AFC Bournemouth,W,B,Etihad Stadium,52558,53588

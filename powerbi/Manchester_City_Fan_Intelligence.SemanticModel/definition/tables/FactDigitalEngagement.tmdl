@@ -1,0 +1,75 @@
+table 'FactDigitalEngagement'
+
+	measure 'Digital Sessions' = SUM(FactDigitalEngagement[Sessions])
+		formatString: #,0
+
+	measure 'Content Views - Model' = SUM(FactDigitalEngagement[ContentViews])
+		formatString: #,0
+
+	measure 'Engagement Actions' = SUM(FactDigitalEngagement[EngagementActions])
+		formatString: #,0
+
+	measure 'Digitally Active Fans' = DISTINCTCOUNT(FactDigitalEngagement[FanID])
+		formatString: #,0
+
+	column 'EngagementID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: EngagementID
+
+	column 'FanID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: FanID
+
+	column 'EventDate'
+		dataType: dateTime
+		summarizeBy: none
+		sourceColumn: EventDate
+
+	column 'DateKey'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'MonthYear'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MonthYear
+
+	column 'Platform'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Platform
+
+	column 'Sessions'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Sessions
+
+	column 'ContentViews'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: ContentViews
+
+	column 'EngagementActions'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: EngagementActions
+
+	column 'DataNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DataNature
+
+	partition 'FactDigitalEngagement-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\fact_digital_engagement.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"EngagementID", Int64.Type}, {"FanID", Int64.Type}, {"EventDate", type datetime}, {"DateKey", Int64.Type}, {"MonthYear", type text}, {"Platform", type text}, {"Sessions", Int64.Type}, {"ContentViews", Int64.Type}, {"EngagementActions", Int64.Type}, {"DataNature", type text}})
+				in
+					Typed

@@ -1,0 +1,21 @@
+model Model
+	culture: en-GB
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	discourageImplicitMeasures
+
+ref table 'DimFan'
+ref table 'DimDate'
+ref table 'DimMatch'
+ref table 'DimProduct'
+ref table 'DimCampaign'
+ref table 'FactTicketSales'
+ref table 'FactRetailTransactions'
+ref table 'FactMembership'
+ref table 'FactDigitalEngagement'
+ref table 'FactCampaignInteractions'
+ref table 'Fan360Features'
+ref table 'PublicRevenue'
+ref table 'PublicSocial'
+ref table 'PublicMatchday'
+ref table 'PublicSupportersClubs'

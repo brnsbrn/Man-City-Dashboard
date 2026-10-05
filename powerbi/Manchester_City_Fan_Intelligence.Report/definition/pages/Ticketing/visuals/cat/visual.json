@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "cat",
+  "position": {
+    "x": 30,
+    "y": 185,
+    "z": 1000,
+    "width": 575,
+    "height": 450,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimMatch"
+                    }
+                  },
+                  "Property": "MatchCategory"
+                }
+              },
+              "queryRef": "DimMatch.MatchCategory",
+              "active": true,
+              "nativeQueryRef": "MatchCategory"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTicketSales"
+                    }
+                  },
+                  "Property": "Ticket Revenue"
+                }
+              },
+              "queryRef": "FactTicketSales.Ticket Revenue",
+              "active": true,
+              "nativeQueryRef": "Ticket Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ticket Revenue by Match Category'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": []
+  }
+}

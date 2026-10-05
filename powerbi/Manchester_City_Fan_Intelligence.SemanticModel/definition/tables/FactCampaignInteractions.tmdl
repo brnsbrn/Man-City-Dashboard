@@ -1,0 +1,90 @@
+table 'FactCampaignInteractions'
+
+	measure 'Campaign Delivered' = SUM(FactCampaignInteractions[Delivered])
+		formatString: #,0
+
+	measure 'Campaign Opens' = SUM(FactCampaignInteractions[Opened])
+		formatString: #,0
+
+	measure 'Campaign Clicks' = SUM(FactCampaignInteractions[Clicked])
+		formatString: #,0
+
+	measure 'Campaign Conversions' = SUM(FactCampaignInteractions[Converted])
+		formatString: #,0
+
+	measure 'CRM CTR' = DIVIDE([Campaign Clicks],[Campaign Delivered])
+		formatString: 0.0%
+
+	measure 'CRM Conversion Rate' = DIVIDE([Campaign Conversions],[Campaign Delivered])
+		formatString: 0.0%
+
+	measure 'Campaign Attributed Revenue' = SUM(FactCampaignInteractions[AttributedRevenueGBP])
+		formatString: £#,0
+
+	column 'InteractionID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: InteractionID
+
+	column 'CampaignID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: CampaignID
+
+	column 'FanID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: FanID
+
+	column 'InteractionDate'
+		dataType: dateTime
+		summarizeBy: none
+		sourceColumn: InteractionDate
+
+	column 'DateKey'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'Delivered'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Delivered
+
+	column 'Opened'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Opened
+
+	column 'Clicked'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Clicked
+
+	column 'Converted'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Converted
+
+	column 'AttributedRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: AttributedRevenueGBP
+
+	column 'DataNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DataNature
+
+	partition 'FactCampaignInteractions-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\fact_campaign_interactions.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"InteractionID", Int64.Type}, {"CampaignID", Int64.Type}, {"FanID", Int64.Type}, {"InteractionDate", type datetime}, {"DateKey", Int64.Type}, {"Delivered", Int64.Type}, {"Opened", Int64.Type}, {"Clicked", Int64.Type}, {"Converted", Int64.Type}, {"AttributedRevenueGBP", type number}, {"DataNature", type text}})
+				in
+					Typed

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "comp",
+  "position": {
+    "x": 635,
+    "y": 185,
+    "z": 1000,
+    "width": 575,
+    "height": 450,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimMatch"
+                    }
+                  },
+                  "Property": "Competition"
+                }
+              },
+              "queryRef": "DimMatch.Competition",
+              "active": true,
+              "nativeQueryRef": "Competition"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactTicketSales"
+                    }
+                  },
+                  "Property": "Ticket Buyers"
+                }
+              },
+              "queryRef": "FactTicketSales.Ticket Buyers",
+              "active": true,
+              "nativeQueryRef": "Ticket Buyers"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ticket Buyers by Competition'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": []
+  }
+}

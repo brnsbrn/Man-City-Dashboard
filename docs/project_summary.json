@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-09-30",
+  "seed": 42,
+  "metrics": {
+    "fans": 30000,
+    "members": 10141,
+    "ticket_buyers": 14184,
+    "ticket_rows": 45505,
+    "retail_buyers": 10278,
+    "retail_rows": 28789,
+    "digital_rows": 145000,
+    "campaign_interactions": 74640,
+    "ticket_revenue": 2906637.24,
+    "retail_revenue": 1418265.76,
+    "membership_revenue": 1009367.02,
+    "campaign_conv_rate": 0.008088205156230786,
+    "campaign_ctr": 0.06818958097085787,
+    "repeat_ticket_rate": 0.5559080654258319,
+    "engaged_fans": 11902
+  },
+  "validation_passed": true,
+  "rows": {
+    "DimFan": 30000,
+    "DimDate": 365,
+    "DimMatch": 27,
+    "DimProduct": 12,
+    "DimCampaign": 20,
+    "FactTicketSales": 45505,
+    "FactRetailTransactions": 28789,
+    "FactMembership": 10141,
+    "FactDigitalEngagement": 145000,
+    "FactCampaignInteractions": 74640,
+    "Fan360Features": 30000,
+    "PublicRevenue": 5,
+    "PublicSocial": 2,
+    "PublicMatchday": 2,
+    "PublicSupportersClubs": 1
+  }
+}

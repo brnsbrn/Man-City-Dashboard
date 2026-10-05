@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "reportedrev",
+  "position": {
+    "x": 1045,
+    "y": 40,
+    "z": 1000,
+    "width": 185,
+    "height": 105,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "PublicRevenue"
+                    }
+                  },
+                  "Property": "Reported 2024/25 Total Revenue"
+                }
+              },
+              "queryRef": "PublicRevenue.Reported 2024/25 Total Revenue",
+              "active": true,
+              "nativeQueryRef": "Reported 2024/25 Total Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reported Club Revenue 2024/25'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": []
+  }
+}

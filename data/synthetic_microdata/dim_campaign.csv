@@ -1,0 +1,21 @@
+CampaignID,CampaignName,Objective,PrimaryChannel,StartDate,EndDate,DataNature
+1,Welcome Journey,Lifecycle,Email,2024-07-16,2024-07-25,Synthetic campaign catalogue
+2,Membership Upsell,Membership,Email,2024-08-03,2024-08-12,Synthetic campaign catalogue
+3,Derby Ticket Alert,Ticketing,Email,2024-08-22,2024-08-30,Synthetic campaign catalogue
+4,UCL Ticket Priority,Ticketing,Email,2024-09-04,2024-09-11,Synthetic campaign catalogue
+5,New Kit Launch,Retail,Email,2024-09-23,2024-10-03,Synthetic campaign catalogue
+6,Black Friday Retail,Retail,Email,2024-10-03,2024-10-10,Synthetic campaign catalogue
+7,Dormant Fan Winback,Lifecycle,Email,2024-10-26,2024-11-01,Synthetic campaign catalogue
+8,Matchday Reminder,Engagement,Push,2024-11-06,2024-11-17,Synthetic campaign catalogue
+9,App Content Digest,Engagement,Push,2024-11-27,2024-12-04,Synthetic campaign catalogue
+10,Christmas Gifts,Retail,Email,2024-12-13,2024-12-24,Synthetic campaign catalogue
+11,International Cityzens,Membership,Paid Social,2024-12-27,2024-12-31,Synthetic campaign catalogue
+12,UK Membership Renewal,Membership,Email,2025-01-12,2025-01-22,Synthetic campaign catalogue
+13,Kids Range Launch,Retail,Email,2025-01-24,2025-01-29,Synthetic campaign catalogue
+14,Final Home Games,Ticketing,Email,2025-02-08,2025-02-16,Synthetic campaign catalogue
+15,Content Personalisation,Engagement,Email,2025-02-26,2025-03-03,Synthetic campaign catalogue
+16,OSC Referral,Acquisition,Email,2025-03-15,2025-03-24,Synthetic campaign catalogue
+17,Season Ticket Renewal,Membership,Email,2025-04-03,2025-04-09,Synthetic campaign catalogue
+18,Birthday Offer,Lifecycle,Email,2025-04-18,2025-04-29,Synthetic campaign catalogue
+19,Champions League Content,Engagement,Push,2025-05-01,2025-05-05,Synthetic campaign catalogue
+20,Summer Merch Sale,Retail,Email,2025-05-20,2025-05-26,Synthetic campaign catalogue

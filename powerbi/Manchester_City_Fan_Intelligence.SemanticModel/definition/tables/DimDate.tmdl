@@ -1,0 +1,57 @@
+table 'DimDate'
+
+	column 'Date'
+		dataType: dateTime
+		summarizeBy: none
+		sourceColumn: Date
+
+	column 'DateKey'
+		dataType: int64
+		isKey
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'Year'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Year
+
+	column 'MonthNo'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: MonthNo
+
+	column 'Month'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Month
+
+	column 'MonthYear'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MonthYear
+
+	column 'Quarter'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Quarter
+
+	column 'Weekday'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Weekday
+
+	column 'IsWeekend'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+	partition 'DimDate-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\dim_date.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"Date", type datetime}, {"DateKey", Int64.Type}, {"Year", Int64.Type}, {"MonthNo", Int64.Type}, {"Month", type text}, {"MonthYear", type text}, {"Quarter", type text}, {"Weekday", type text}, {"IsWeekend", type logical}})
+				in
+					Typed

@@ -1,0 +1,41 @@
+table 'PublicSupportersClubs'
+
+	column 'Season'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Season
+
+	column 'OfficialSupportersClubs'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: OfficialSupportersClubs
+
+	column 'Countries'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Countries
+
+	column 'USBranches'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: USBranches
+
+	column 'ChinaBranches'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: ChinaBranches
+
+	column 'RecordNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: RecordNature
+
+	partition 'PublicSupportersClubs-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\public_benchmarks\supporters_clubs_benchmarks.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"Season", type text}, {"OfficialSupportersClubs", Int64.Type}, {"Countries", Int64.Type}, {"USBranches", Int64.Type}, {"ChinaBranches", Int64.Type}, {"RecordNature", type text}})
+				in
+					Typed

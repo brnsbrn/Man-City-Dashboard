@@ -1,0 +1,145 @@
+table 'Fan360Features'
+
+	measure 'Segment Fans' = DISTINCTCOUNT(Fan360Features[FanID])
+		formatString: #,0
+
+	measure 'Active Fans' = CALCULATE(DISTINCTCOUNT(Fan360Features[FanID]), FILTER(Fan360Features, Fan360Features[DigitalSessions] >= 30 || Fan360Features[TicketPurchases] > 0 || Fan360Features[RetailPurchases] > 0 || Fan360Features[IsMember] = 1 || Fan360Features[CampaignClicks] > 0))
+		formatString: #,0
+
+	measure 'Known Commercial Revenue' = SUM(Fan360Features[TotalKnownRevenueGBP])
+		formatString: £#,0
+
+	measure 'Avg Revenue per Fan' = DIVIDE([Known Commercial Revenue],[Total Fans])
+		formatString: £0.00
+
+	measure 'Engaged Fans' = CALCULATE(DISTINCTCOUNT(Fan360Features[FanID]), Fan360Features[EngagementActions] >= 8)
+		formatString: #,0
+
+	measure 'Fan Engagement Rate' = DIVIDE([Engaged Fans],[Total Fans])
+		formatString: 0.0%
+
+	column 'FanID'
+		dataType: int64
+		isKey
+		summarizeBy: none
+		sourceColumn: FanID
+
+	column 'Country'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Country
+
+	column 'HomeMarket'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: HomeMarket
+
+	column 'IsMember'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: IsMember
+
+	column 'MembershipType'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MembershipType
+
+	column 'AcquisitionChannel'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AcquisitionChannel
+
+	column 'TicketPurchases'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: TicketPurchases
+
+	column 'TicketRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: TicketRevenueGBP
+
+	column 'MatchesAttended'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: MatchesAttended
+
+	column 'RetailPurchases'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: RetailPurchases
+
+	column 'RetailRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: RetailRevenueGBP
+
+	column 'MembershipRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: MembershipRevenueGBP
+
+	column 'DigitalSessions'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: DigitalSessions
+
+	column 'ContentViews'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: ContentViews
+
+	column 'EngagementActions'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: EngagementActions
+
+	column 'CampaignsReceived'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: CampaignsReceived
+
+	column 'CampaignClicks'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: CampaignClicks
+
+	column 'CampaignConversions'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: CampaignConversions
+
+	column 'CampaignAttributedRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: CampaignAttributedRevenueGBP
+
+	column 'TotalKnownRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: TotalKnownRevenueGBP
+
+	column 'LifecycleStage'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: LifecycleStage
+
+	column 'FanSegment'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: FanSegment
+
+	column 'DataNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DataNature
+
+	partition 'Fan360Features-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\fan_360_features.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"FanID", Int64.Type}, {"Country", type text}, {"HomeMarket", type text}, {"IsMember", Int64.Type}, {"MembershipType", type text}, {"AcquisitionChannel", type text}, {"TicketPurchases", type number}, {"TicketRevenueGBP", type number}, {"MatchesAttended", type number}, {"RetailPurchases", type number}, {"RetailRevenueGBP", type number}, {"MembershipRevenueGBP", type number}, {"DigitalSessions", type number}, {"ContentViews", type number}, {"EngagementActions", type number}, {"CampaignsReceived", type number}, {"CampaignClicks", type number}, {"CampaignConversions", type number}, {"CampaignAttributedRevenueGBP", type number}, {"TotalKnownRevenueGBP", type number}, {"LifecycleStage", type text}, {"FanSegment", type text}, {"DataNature", type text}})
+				in
+					Typed

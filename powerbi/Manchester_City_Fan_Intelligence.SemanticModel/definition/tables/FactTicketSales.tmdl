@@ -1,0 +1,92 @@
+table 'FactTicketSales'
+
+	measure 'Ticket Revenue' = SUM(FactTicketSales[NetRevenueGBP])
+		formatString: £#,0
+
+	measure 'Ticket Buyers' = DISTINCTCOUNT(FactTicketSales[FanID])
+		formatString: #,0
+
+	measure 'Tickets Sold - Model' = SUM(FactTicketSales[Quantity])
+		formatString: #,0
+
+	measure 'Avg Ticket Yield' = DIVIDE([Ticket Revenue],[Tickets Sold - Model])
+		formatString: £0.00
+
+	measure 'Repeat Ticket Buyers' = COUNTROWS(FILTER(VALUES(FactTicketSales[FanID]), CALCULATE(DISTINCTCOUNT(FactTicketSales[MatchID])) >= 2))
+		formatString: #,0
+
+	measure 'Repeat Attendance Rate' = DIVIDE([Repeat Ticket Buyers],[Ticket Buyers])
+		formatString: 0.0%
+
+	column 'TicketSaleID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: TicketSaleID
+
+	column 'FanID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: FanID
+
+	column 'MatchID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: MatchID
+
+	column 'PurchaseDate'
+		dataType: dateTime
+		summarizeBy: none
+		sourceColumn: PurchaseDate
+
+	column 'DateKey'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'TicketType'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: TicketType
+
+	column 'Quantity'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Quantity
+
+	column 'GrossRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: GrossRevenueGBP
+
+	column 'DiscountGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: DiscountGBP
+
+	column 'NetRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: NetRevenueGBP
+
+	column 'SalesChannel'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SalesChannel
+
+	column 'DataNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DataNature
+
+	partition 'FactTicketSales-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\fact_ticket_sales.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"TicketSaleID", Int64.Type}, {"FanID", Int64.Type}, {"MatchID", Int64.Type}, {"PurchaseDate", type datetime}, {"DateKey", Int64.Type}, {"TicketType", type text}, {"Quantity", Int64.Type}, {"GrossRevenueGBP", type number}, {"DiscountGBP", type number}, {"NetRevenueGBP", type number}, {"SalesChannel", type text}, {"DataNature", type text}})
+				in
+					Typed

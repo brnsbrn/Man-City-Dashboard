@@ -1,0 +1,81 @@
+table 'DimFan'
+
+	measure 'Total Fans' = DISTINCTCOUNT(DimFan[FanID])
+		formatString: #,0
+
+	measure 'Members' = CALCULATE([Total Fans], DimFan[IsMember] = 1)
+		formatString: #,0
+
+	measure 'Membership Rate' = DIVIDE([Members],[Total Fans])
+		formatString: 0.0%
+
+	column 'FanID'
+		dataType: int64
+		isKey
+		summarizeBy: none
+		sourceColumn: FanID
+
+	column 'Age'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Age
+
+	column 'AgeBand'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AgeBand
+
+	column 'Country'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Country
+
+	column 'City'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: City
+
+	column 'Region'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Region
+
+	column 'AcquisitionChannel'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: AcquisitionChannel
+
+	column 'FirstSeenDate'
+		dataType: dateTime
+		summarizeBy: none
+		sourceColumn: FirstSeenDate
+
+	column 'IsMember'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: IsMember
+
+	column 'MembershipType'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MembershipType
+
+	column 'HomeMarket'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: HomeMarket
+
+	column 'DataNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DataNature
+
+	partition 'DimFan-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\dim_fan.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"FanID", Int64.Type}, {"Age", Int64.Type}, {"AgeBand", type text}, {"Country", type text}, {"City", type text}, {"Region", type text}, {"AcquisitionChannel", type text}, {"FirstSeenDate", type datetime}, {"IsMember", Int64.Type}, {"MembershipType", type text}, {"HomeMarket", type text}, {"DataNature", type text}})
+				in
+					Typed

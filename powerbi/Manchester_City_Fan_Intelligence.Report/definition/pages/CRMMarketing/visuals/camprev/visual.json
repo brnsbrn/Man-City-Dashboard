@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "camprev",
+  "position": {
+    "x": 30,
+    "y": 185,
+    "z": 1000,
+    "width": 590,
+    "height": 450,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimCampaign"
+                    }
+                  },
+                  "Property": "CampaignName"
+                }
+              },
+              "queryRef": "DimCampaign.CampaignName",
+              "active": true,
+              "nativeQueryRef": "CampaignName"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactCampaignInteractions"
+                    }
+                  },
+                  "Property": "Campaign Attributed Revenue"
+                }
+              },
+              "queryRef": "FactCampaignInteractions.Campaign Attributed Revenue",
+              "active": true,
+              "nativeQueryRef": "Campaign Attributed Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Attributed Revenue by Campaign'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": []
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "revseg",
+  "position": {
+    "x": 30,
+    "y": 175,
+    "z": 1000,
+    "width": 590,
+    "height": 460,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fan360Features"
+                    }
+                  },
+                  "Property": "FanSegment"
+                }
+              },
+              "queryRef": "Fan360Features.FanSegment",
+              "active": true,
+              "nativeQueryRef": "FanSegment"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fan360Features"
+                    }
+                  },
+                  "Property": "Known Commercial Revenue"
+                }
+              },
+              "queryRef": "Fan360Features.Known Commercial Revenue",
+              "active": true,
+              "nativeQueryRef": "Known Commercial Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Known Revenue by Fan Segment'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": []
+  }
+}

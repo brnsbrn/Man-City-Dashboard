@@ -1,0 +1,56 @@
+table 'FactMembership'
+
+	measure 'Membership Revenue' = SUM(FactMembership[MembershipRevenueGBP])
+		formatString: £#,0
+
+	column 'MembershipTransactionID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: MembershipTransactionID
+
+	column 'FanID'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: FanID
+
+	column 'PurchaseDate'
+		dataType: dateTime
+		summarizeBy: none
+		sourceColumn: PurchaseDate
+
+	column 'DateKey'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column 'MembershipType'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MembershipType
+
+	column 'MembershipRevenueGBP'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: MembershipRevenueGBP
+
+	column 'Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Status
+
+	column 'DataNature'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: DataNature
+
+	partition 'FactMembership-Import' = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(#"DataRoot" & "\synthetic_microdata\fact_membership.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"MembershipTransactionID", Int64.Type}, {"FanID", Int64.Type}, {"PurchaseDate", type datetime}, {"DateKey", Int64.Type}, {"MembershipType", type text}, {"MembershipRevenueGBP", type number}, {"Status", type text}, {"DataNature", type text}})
+				in
+					Typed
